@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= farm.name %></title>
+  </head>
+  <body>
+    <h1><%= farm.name %></h1>
+    <ul>
+      <li>City: <%= farm.city %></li>
+      <li>Email: <%= farm.email %></li>
+    </ul>
+    <h2>Products</h2>
+    <ul>
+      <% for(let product of farm.products) {%>
+      <li><a href="/products/<%= product._id%>"><%= product.name %></a></li>
+      <%}%>
+    </ul>
+    <!-- Aca en el li, se podria haber puesto farm/farm._id etc pero realmente no lo necesito pq lo que me importa es el producto y no necesito el id de la granja para acceder -->
+    <a href="/farms">All Farms</a>
+    <a href="/farms/<%= farm._id%>/products/new">Add Product</a>
+    <form action="/farms/<%= farm._id %>?_method=DELETE" method="POST">
+      <button>Delete</button>
+    </form>
+  </body>
+</html>
+<!-- Options to deleting the products asociated with a farm:
+Manual way: we write code after we findbyIdanddelete in the delete route.
+Other option: it takes more work upfront but then it is nicer if you have larger apps. To delete not just products but all models asociated. We use a mongo middleware. We do it in the Schema -->
